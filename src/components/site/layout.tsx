@@ -38,6 +38,7 @@ export function Navbar() {
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
         <a href="#top" className="flex min-w-0 items-center gap-2">
           <img src={logos.mec} alt="MEC logo" className="size-9 shrink-0 rounded-full bg-ink-foreground p-0.5" />
+          <img src={logos.hultAlt} alt="EF Hult Prize logo" loading="lazy" className="hidden h-8 w-auto max-w-12 shrink-0 rounded-sm bg-ink-foreground px-1 sm:block" />
           <span className="truncate font-display text-sm font-bold text-ink-foreground sm:text-base">Hult Prize <span className="text-pink">at MEC</span></span>
         </a>
         <ul className="hidden items-center gap-5 xl:flex">

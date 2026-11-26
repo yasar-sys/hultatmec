@@ -3,7 +3,7 @@ import { Award, Calendar, Camera, GraduationCap, Medal, School, Trophy } from "l
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { events, faqs, gallery, journey, news, outreach, sponsors } from "@/content/site";
+import { events, faqs, gallery, journey, logos, news, outreach, sponsors } from "@/content/site";
 import { Reveal, SectionHeading } from "./helpers";
 
 export function Events() {
@@ -122,7 +122,14 @@ export function Sponsors({ onPartner }: { onPartner: () => void }) {
               <h3 className="mb-5 text-center text-sm font-semibold uppercase tracking-widest text-muted-foreground">{tier}</h3>
               <div className={`mx-auto grid gap-4 ${ti === 0 ? "max-w-md" : ti === 1 ? "max-w-sm" : "grid-cols-2 md:grid-cols-4"}`}>
                 {names.map((n, i) => (
-                  <div key={i} className={`grid place-items-center rounded-2xl border-2 border-dashed border-pink/30 bg-card font-display font-bold text-card-foreground/40 transition hover:border-pink hover:text-primary ${ti === 0 ? "h-36 text-xl" : "h-24"}`}>{n}</div>
+                  <div key={i} className={`grid place-items-center rounded-2xl border-2 bg-card font-display font-bold transition hover:border-pink ${n === "Ummah Host BD" ? "border-solid border-pink/30 text-card-foreground hover:text-card-foreground" : "border-dashed border-pink/30 text-card-foreground/40 hover:text-primary"} ${ti === 0 ? "h-36 text-xl" : "h-24"}`}>
+                    {n === "Ummah Host BD" ? (
+                      <span className="flex flex-col items-center gap-2">
+                        <img src={logos.ummahHost} alt="" loading="lazy" className="size-16 rounded-lg object-cover" />
+                        <span>{n}</span>
+                      </span>
+                    ) : n}
+                  </div>
                 ))}
               </div>
             </Reveal>

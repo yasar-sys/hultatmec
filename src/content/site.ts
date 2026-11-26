@@ -3,16 +3,26 @@
 import directorPhoto from "@/assets/director.jpg.asset.json";
 import deputy1Photo from "@/assets/deputy-1.jpg.asset.json";
 import deputy2Photo from "@/assets/deputy-2.jpg.asset.json";
-import hultLogo from "@/assets/hult-prize-logo.png.asset.json";
+import hultLogoPink from "@/assets/hult-prize-logo-pink.png.asset.json";
+import hultLogoGold from "@/assets/hult-prize-logo-gold.png.asset.json";
 import mecLogo from "@/assets/mec-logo.svg.asset.json";
+import ummahHostLogo from "@/assets/ummah-host-bd.jpg.asset.json";
+import mecFrontPhoto from "@/assets/mec-campus-front.png.asset.json";
+import hultFrontLockup from "@/assets/hult-prize-lockup-front.jpg.asset.json";
 import eventCampus from "@/assets/event-campus-2022.jpg.asset.json";
 import eventPresentation from "@/assets/event-presentation-2022.jpg.asset.json";
 import eventSpeaker from "@/assets/event-speaker-2022.jpg.asset.json";
 import eventTeam from "@/assets/event-team-2022.jpg.asset.json";
 import eventWorkshop from "@/assets/event-workshop-2022.jpg.asset.json";
 
-export const logos = { hult: hultLogo.url, mec: mecLogo.url };
-export const heroPhoto = eventCampus.url;
+export const logos = {
+  hult: hultLogoPink.url,
+  hultAlt: hultLogoGold.url,
+  mec: mecLogo.url,
+  ummahHost: ummahHostLogo.url,
+};
+export const heroPhoto = mecFrontPhoto.url;
+export const heroLockup = hultFrontLockup.url;
 
 export const site = {
   name: "Hult Prize at MEC",
