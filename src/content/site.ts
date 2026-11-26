@@ -28,7 +28,7 @@ export const site = {
   name: "Hult Prize at MEC",
   tagline: "Ideas that change the world start on our campus",
   competitionDate: "2027-02-15T09:00:00+06:00",
-  email: "hello@hultatmec.com",
+  email: "efhultprizeatmec@gmail.com",
   phone: "+880 1XXX-XXXXXX",
   whatsapp: "+8801865239302",
   socials: {
@@ -46,7 +46,7 @@ export const director = {
     "Welcome to Hult Prize at MEC! Our campus is full of talented students with ideas that can solve real problems. This program is our chance to turn those ideas into action. Whether you are a coder, a designer, a photographer or a dreamer, there is a place for you here. Join us, build your team, and let's show the world what MEC can do.",
   linkedin: "https://linkedin.com/",
   facebook: "https://facebook.com/",
-  email: "director@hultatmec.com",
+  email: "efhultprizeatmec@gmail.com",
 };
 
 export const deputies = [
