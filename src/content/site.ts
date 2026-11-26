@@ -32,9 +32,9 @@ export const site = {
   phone: "+880 1XXX-XXXXXX",
   whatsapp: "+8801865239302",
   socials: {
-    facebook: "https://facebook.com/",
+    facebook: "https://www.facebook.com/share/19ppHVr3Sw/",
     instagram: "https://instagram.com/",
-    linkedin: "https://linkedin.com/",
+    linkedin: "https://www.linkedin.com/company/ef-hult-prize-mec/",
   },
 };
 
