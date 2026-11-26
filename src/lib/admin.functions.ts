@@ -9,7 +9,7 @@ async function passwordOk(input: string) {
   if (!expected) throw new Error("ADMIN_PASSWORD is not set");
   const [a, b] = await Promise.all([digest(input), digest(expected)]);
   let diff = 0;
-  for (let i = 0; i < a.length; i++) diff |= a[i]! ^ b[i]!;
+  for (let i = 0; i < a.length; i++) diff |= (a[i] ?? 0) ^ (b[i] ?? 0);
   return diff === 0;
 }
 
@@ -19,9 +19,9 @@ export const getAdminData = createServerFn({ method: "POST" })
     if (!(await passwordOk(data.password))) return { ok: false as const };
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const [r, p, c] = await Promise.all([
-      supabaseAdmin.from("registrations").select("*").order("created_at", { ascending: false }),
-      supabaseAdmin.from("partner_inquiries").select("*").order("created_at", { ascending: false }),
-      supabaseAdmin.from("contact_messages").select("*").order("created_at", { ascending: false }),
+      supabaseAdmin.from("registrations").select("*").order("created_at", { ascending: false }).limit(1000),
+      supabaseAdmin.from("partner_inquiries").select("*").order("created_at", { ascending: false }).limit(1000),
+      supabaseAdmin.from("contact_messages").select("*").order("created_at", { ascending: false }).limit(1000),
     ]);
     if (r.error || p.error || c.error) throw new Error("Could not load data");
     return { ok: true as const, registrations: r.data, partners: p.data, contacts: c.data };

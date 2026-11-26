@@ -103,9 +103,24 @@ export function Footer() {
 }
 
 export function WhatsAppButton() {
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const forms = document.querySelectorAll<HTMLElement>("#register, #contact");
+    if (forms.length === 0) return;
+    const observer = new IntersectionObserver(
+      (entries) => setVisible(!entries.some((entry) => entry.isIntersecting)),
+      { threshold: 0.01 },
+    );
+    forms.forEach((form) => observer.observe(form));
+    return () => observer.disconnect();
+  }, []);
+
+  if (!visible) return null;
+
   return (
-    <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp"
-      className="fixed bottom-5 right-5 z-40 grid size-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-glow transition hover:scale-110 [&_svg]:size-6">
+    <a href={`https://wa.me/${site.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp"
+      className="fixed bottom-5 right-5 z-40 grid size-12 place-items-center rounded-full bg-primary text-primary-foreground shadow-glow transition hover:scale-110 sm:size-14 [&_svg]:size-6">
       <SocialIcon name="whatsapp" />
     </a>
   );

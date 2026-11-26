@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Application rules
+- Keep the public program site at `/` and password-protected submission review at `/admin`; visitor submissions contain private contact details.
+- Use the existing anonymous INSERT-only submission policies for visitor forms; do not add public read access to registrations or inquiries.

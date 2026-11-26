@@ -5,8 +5,14 @@ import deputy1Photo from "@/assets/deputy-1.jpg.asset.json";
 import deputy2Photo from "@/assets/deputy-2.jpg.asset.json";
 import hultLogo from "@/assets/hult-prize-logo.png.asset.json";
 import mecLogo from "@/assets/mec-logo.svg.asset.json";
+import eventCampus from "@/assets/event-campus-2022.jpg.asset.json";
+import eventPresentation from "@/assets/event-presentation-2022.jpg.asset.json";
+import eventSpeaker from "@/assets/event-speaker-2022.jpg.asset.json";
+import eventTeam from "@/assets/event-team-2022.jpg.asset.json";
+import eventWorkshop from "@/assets/event-workshop-2022.jpg.asset.json";
 
 export const logos = { hult: hultLogo.url, mec: mecLogo.url };
+export const heroPhoto = eventCampus.url;
 
 export const site = {
   name: "Hult Prize at MEC",
@@ -14,7 +20,7 @@ export const site = {
   competitionDate: "2027-02-15T09:00:00+06:00",
   email: "hello@hultatmec.com",
   phone: "+880 1XXX-XXXXXX",
-  whatsapp: "8801000000000", // international format, no +
+  whatsapp: "+8801865239302",
   socials: {
     facebook: "https://facebook.com/",
     instagram: "https://instagram.com/",
@@ -78,21 +84,15 @@ export const outreach = {
 };
 
 export const sponsors = {
-  "Title Partner": ["Your Brand Here"],
-  "Official Domain & Hosting Partner": ["Your Brand Here"],
-  "Supporting Partners": ["Partner", "Partner", "Partner", "Partner"],
+  "Official Domain & Hosting Partner": ["Ummah Host BD"],
 } as Record<string, string[]>;
 
-// Add real photo URLs to `src` to replace the placeholders.
-export const gallery: { src?: string; caption: string; tall?: boolean }[] = [
-  { caption: "Program launch", tall: true },
-  { caption: "Info session" },
-  { caption: "Team brainstorming" },
-  { caption: "Mentorship session", tall: true },
-  { caption: "School workshop" },
-  { caption: "Photography walk", tall: true },
-  { caption: "Campus promotion" },
-  { caption: "Pitch practice" },
+export const gallery: { src: string; caption: string; tall?: boolean }[] = [
+  { src: eventPresentation.url, caption: "EF Hult Prize 2022 · Student presentation", tall: true },
+  { src: eventCampus.url, caption: "EF Hult Prize 2022 · Campus team" },
+  { src: eventSpeaker.url, caption: "EF Hult Prize 2022 · Student speaker", tall: true },
+  { src: eventWorkshop.url, caption: "EF Hult Prize 2022 · Program session" },
+  { src: eventTeam.url, caption: "EF Hult Prize 2022 · Participants", tall: true },
 ];
 
 export const news = [

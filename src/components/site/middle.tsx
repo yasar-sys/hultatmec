@@ -147,24 +147,16 @@ export function Gallery() {
         <SectionHeading eyebrow="Gallery" title={<>Moments at <span className="text-gradient-pink">MEC</span></>} />
         <div className="columns-2 gap-4 md:columns-3 lg:columns-4">
           {gallery.map((g, i) => (
-            <button key={i} onClick={() => setActive(i)} className="group mb-4 block w-full overflow-hidden rounded-2xl break-inside-avoid focus-visible:ring-2 focus-visible:ring-ring">
-              {g.src ? (
-                <img src={g.src} alt={g.caption} loading="lazy" className={`w-full object-cover transition duration-500 group-hover:scale-105 ${g.tall ? "aspect-[3/4]" : "aspect-square"}`} />
-              ) : (
-                <div className={`grid w-full place-items-center bg-gradient-to-br ${i % 2 ? "from-ink to-pink/70" : "from-pink-soft to-pink"} text-primary-foreground transition duration-500 group-hover:scale-105 ${g.tall ? "aspect-[3/4]" : "aspect-square"}`}>
-                  <div className="text-center"><Camera className="mx-auto size-7 opacity-80" /><p className="mt-2 px-2 text-sm font-semibold">{g.caption}</p></div>
-                </div>
-              )}
-            </button>
+            <Button key={i} type="button" variant="ghost" aria-label={`View ${g.caption}`} onClick={() => setActive(i)} className="group mb-4 block h-auto w-full break-inside-avoid overflow-hidden rounded-md p-0">
+              <img src={g.src} alt={g.caption} loading="lazy" className={`w-full object-cover transition duration-500 group-hover:scale-105 ${g.tall ? "aspect-[3/4]" : "aspect-square"}`} />
+            </Button>
           ))}
         </div>
       </div>
       <Dialog open={active !== null} onOpenChange={(o) => !o && setActive(null)}>
         <DialogContent className="max-w-3xl border-none bg-ink p-2 text-ink-foreground">
           <DialogTitle className="sr-only">{item?.caption}</DialogTitle>
-          {item && (item.src ? <img src={item.src} alt={item.caption} className="max-h-[80vh] w-full rounded-xl object-contain" /> : (
-            <div className="grid aspect-video place-items-center rounded-xl bg-hero"><div className="text-center"><Camera className="mx-auto size-10 text-pink" /><p className="mt-3 font-display text-xl">{item.caption}</p><p className="text-sm text-ink-foreground/60">Photo coming soon</p></div></div>
-          ))}
+          {item && <img src={item.src} alt={item.caption} className="max-h-[80vh] w-full rounded-md object-contain" />}
           <p className="px-2 pb-1 text-center text-sm text-ink-foreground/70">{item?.caption}</p>
         </DialogContent>
       </Dialog>

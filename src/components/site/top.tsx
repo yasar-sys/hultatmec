@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Globe2, Lightbulb, Linkedin, Facebook, Mail, Quote, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { deputies, director, site, stats } from "@/content/site";
+import { deputies, director, heroPhoto, site, stats } from "@/content/site";
 import { Counter, Reveal, SectionHeading } from "./helpers";
 
 function useCountdown(target: string) {
@@ -19,48 +19,35 @@ function useCountdown(target: string) {
   ] as const;
 }
 
-const shapes = [
-  "left-[8%] top-[18%] size-24 rounded-3xl", "right-[10%] top-[25%] size-16 rounded-full",
-  "left-[20%] bottom-[18%] size-10 rounded-full", "right-[22%] bottom-[12%] size-28 rounded-[2rem]",
-  "left-[48%] top-[12%] size-6 rounded-full", "right-[4%] top-[60%] size-8 rounded-lg",
-];
-
 export function Hero({ onPartner }: { onPartner: () => void }) {
   const cd = useCountdown(site.competitionDate);
   return (
-    <section id="top" className="relative isolate overflow-hidden bg-hero pt-28 pb-20 text-ink-foreground sm:pt-36 sm:pb-28">
-      {shapes.map((c, i) => (
-        <span key={i} aria-hidden className={`absolute -z-10 border border-pink/40 bg-pink/15 animate-float ${c}`} style={{ animationDelay: `${i * -1.5}s`, animationDuration: `${8 + i}s` }} />
-      ))}
+    <section id="top" className="relative isolate overflow-hidden bg-ink pt-18 pb-7 text-ink-foreground sm:pt-32 sm:pb-12">
+      <img src={heroPhoto} alt="" fetchPriority="high" className="absolute inset-0 -z-20 size-full object-cover object-center" />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-ink/60" />
       <div className="mx-auto max-w-5xl px-4 text-center sm:px-6">
-        <Reveal>
-          <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-ink-foreground/90">
-            <span className="size-2 animate-pulse rounded-full bg-pink" /> Official EF Hult Prize campus program · 2026/27
-          </span>
-        </Reveal>
-        <Reveal delay={100}>
-          <h1 className="mt-6 text-5xl font-black leading-[0.95] sm:text-7xl md:text-8xl">
-            Hult Prize <span className="text-gradient-pink">at MEC</span>
-          </h1>
-        </Reveal>
-        <Reveal delay={200}>
-          <p className="mx-auto mt-6 max-w-xl text-lg text-ink-foreground/75 sm:text-xl">{site.tagline}</p>
-        </Reveal>
-        <Reveal delay={300} className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+        <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-ink-foreground/90">
+          <span className="size-2 animate-pulse rounded-full bg-pink" /> Official EF Hult Prize campus program · 2026/27
+        </span>
+        <h1 className="mt-4 text-4xl font-black leading-[0.95] sm:mt-6 sm:text-7xl md:text-8xl">
+          Hult Prize <span className="text-gradient-pink">at MEC</span>
+        </h1>
+        <p className="mx-auto mt-4 max-w-xl text-base text-ink-foreground/75 sm:mt-6 sm:text-xl">{site.tagline}</p>
+        <div className="mt-6 flex flex-col justify-center gap-3 sm:mt-9 sm:flex-row">
           <Button asChild variant="hero" size="xl"><a href="#register">Register Now</a></Button>
           <Button variant="heroOutline" size="xl" onClick={onPartner}>Become a Partner</Button>
-        </Reveal>
-        <Reveal delay={400} className="mt-14">
-          <p className="mb-4 text-xs uppercase tracking-[0.3em] text-pink-soft">Local competition · 15 February 2027</p>
+        </div>
+        <div className="mt-8 sm:mt-14">
+          <p className="mb-3 text-xs uppercase tracking-[0.3em] text-pink-soft sm:mb-4">Local competition · 15 February 2027</p>
           <div className="mx-auto grid max-w-lg grid-cols-4 gap-2 sm:gap-4">
             {cd.map(([label, v]) => (
-              <div key={label} className="rounded-2xl border border-ink-foreground/10 bg-ink-foreground/5 px-2 py-4 backdrop-blur">
+              <div key={label} className="rounded-lg border border-ink-foreground/10 bg-ink-foreground/5 px-2 py-3 backdrop-blur sm:py-4">
                 <div className="font-display text-2xl font-bold tabular-nums sm:text-4xl">{String(v).padStart(2, "0")}</div>
                 <div className="mt-1 text-[10px] uppercase tracking-widest text-ink-foreground/60 sm:text-xs">{label}</div>
               </div>
             ))}
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );
