@@ -342,3 +342,21 @@ export const defaultContent: SiteContent = {
     place: "Mymensingh Engineering College, Bangladesh",
   },
 };
+
+// Backwards-compatible views of the same content, so the existing section components keep working.
+export const site = defaultContent.site;
+export const logos = defaultContent.logos;
+export const heroPhoto = defaultContent.hero.photo;
+export const heroLockup = defaultContent.hero.lockup;
+export const director = defaultContent.team.director;
+export const deputies = defaultContent.team.deputies;
+export const stats = defaultContent.stats;
+export const events = defaultContent.events.items;
+export const journey = defaultContent.journey.items;
+export const outreach = defaultContent.outreach;
+export const sponsors: Record<string, string[]> = Object.fromEntries(
+  defaultContent.sponsors.tiers.map((t) => [t.tier, t.partners.map((p) => p.name)]),
+);
+export const gallery = defaultContent.gallery.items;
+export const news = defaultContent.news.items;
+export const faqs = defaultContent.faqs.items;
