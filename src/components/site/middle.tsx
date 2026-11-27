@@ -122,7 +122,7 @@ export function Sponsors({ onPartner }: { onPartner: () => void }) {
               <h3 className="mb-5 text-center text-sm font-semibold uppercase tracking-widest text-muted-foreground">{tier}</h3>
               <div className={`mx-auto grid gap-4 ${ti === 0 ? "max-w-md" : ti === 1 ? "max-w-sm" : "grid-cols-2 md:grid-cols-4"}`}>
                 {names.map((n, i) => (
-                  <div key={i} className={`grid place-items-center rounded-2xl border-2 bg-card font-display font-bold transition hover:border-pink ${n === "Ummah Host BD" ? "border-solid border-pink/30 text-card-foreground hover:text-card-foreground" : "border-dashed border-pink/30 text-card-foreground/40 hover:text-primary"} ${ti === 0 ? "h-36 text-xl" : "h-24"}`}>
+                  <div key={i} className={`grid place-items-center rounded-2xl border-2 font-display font-bold transition hover:border-pink ${n === "Ummah Host BD" ? "border-solid border-pink/30 text-card-foreground hover:text-card-foreground" : "border-dashed border-pink/30 text-card-foreground/40 hover:text-primary"} ${ti === 0 ? "h-36 text-xl" : "h-24"}`}>
                     {n === "Ummah Host BD" ? (
                       <span className="flex flex-col items-center gap-2">
                         <img src={logos.ummahHost} alt="" loading="lazy" className="size-16 rounded-lg object-cover" />

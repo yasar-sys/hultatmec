@@ -29,7 +29,7 @@ export function Hero({ onPartner }: { onPartner: () => void }) {
         <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-ink-foreground/90">
           <span className="size-2 animate-pulse rounded-full bg-pink" /> Official EF Hult Prize campus program · 2026/27
         </span>
-        <img src={heroLockup} alt="EF Hult Prize and Hult Prize at MEC logo lockup" fetchPriority="high" className="mx-auto mb-5 mt-5 block h-auto w-full max-w-md rounded-md bg-white p-2 shadow-card sm:mb-6 sm:mt-6" />
+        <img src={heroLockup} alt="EF Hult Prize and Hult Prize at MEC logo lockup" fetchPriority="high" className="mx-auto mb-5 mt-5 block h-auto w-full max-w-md drop-shadow-[0_6px_18px_oklch(0_0_0/45%)] sm:mb-6 sm:mt-6" />
         <h1 className="mt-4 text-4xl font-black leading-[0.95] sm:mt-6 sm:text-7xl md:text-8xl">
           Hult Prize <span className="text-gradient-pink">at MEC</span>
         </h1>

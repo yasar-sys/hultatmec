@@ -37,8 +37,8 @@ export function Navbar() {
     <header className={`fixed inset-x-0 top-0 z-50 transition-all ${scrolled ? "bg-ink/85 backdrop-blur-xl border-b border-ink-foreground/10" : "bg-transparent"}`}>
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
         <a href="#top" className="flex min-w-0 items-center gap-2">
-          <img src={logos.mec} alt="MEC logo" className="size-9 shrink-0 rounded-full bg-ink-foreground p-0.5" />
-          <img src={logos.hultAlt} alt="EF Hult Prize logo" loading="lazy" className="hidden h-8 w-auto max-w-12 shrink-0 rounded-sm bg-ink-foreground px-1 sm:block" />
+          <img src={logos.mec} alt="MEC logo" className="size-9 shrink-0" />
+          <img src={logos.hultAlt} alt="EF Hult Prize logo" loading="lazy" className="hidden h-7 w-auto shrink-0 sm:block" />
           <span className="truncate font-display text-sm font-bold text-ink-foreground sm:text-base">Hult Prize <span className="text-pink">at MEC</span></span>
         </a>
         <ul className="hidden items-center gap-5 xl:flex">
@@ -74,8 +74,8 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-3">
         <div>
           <div className="flex items-center gap-3">
-            <img src={logos.hult} alt="EF Hult Prize logo" loading="lazy" className="h-12 rounded-lg bg-ink-foreground" />
-            <img src={logos.mec} alt="Mymensingh Engineering College logo" loading="lazy" className="size-12 rounded-full bg-ink-foreground p-0.5" />
+            <img src={logos.hult} alt="EF Hult Prize logo" loading="lazy" className="h-12 w-auto" />
+            <img src={logos.mec} alt="Mymensingh Engineering College logo" loading="lazy" className="size-12" />
           </div>
           <p className="mt-5 max-w-xs text-sm text-ink-foreground/65">Official Hult Prize campus program at MEC. Ideas that change the world start on our campus.</p>
         </div>
