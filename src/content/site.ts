@@ -43,9 +43,9 @@ export const director = {
   photo: directorPhoto.url,
   message:
     "Welcome to Hult Prize at MEC! Our campus is full of talented students with ideas that can solve real problems. This program is our chance to turn those ideas into action. Whether you are a coder, a designer, a photographer or a dreamer, there is a place for you here. Join us, build your team, and let's show the world what MEC can do.",
-  linkedin: "https://linkedin.com/",
-  facebook: "https://facebook.com/",
-  email: "efhultprizeatmec@gmail.com",
+  linkedin: "https://www.linkedin.com/in/samin-yasar-sunny",
+  facebook: "https://www.facebook.com/share/1Mb5Ud2o6Q/",
+  email: "saminyasarsunny@gmail.com",
 };
 
 export const deputies = [
