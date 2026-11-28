@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Globe2, Lightbulb, Linkedin, Facebook, Mail, Quote, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { deputies, director, heroLockup, heroPhoto, site, stats } from "@/content/site";
+import { useSiteContent } from "@/content/context";
 import { Counter, Reveal, SectionHeading } from "./helpers";
 
 function useCountdown(target: string) {
@@ -20,26 +20,27 @@ function useCountdown(target: string) {
 }
 
 export function Hero({ onPartner }: { onPartner: () => void }) {
+  const { site, hero, presentation } = useSiteContent();
   const cd = useCountdown(site.competitionDate);
   return (
     <section id="top" className="relative isolate overflow-hidden bg-ink pt-18 pb-7 text-ink-foreground sm:pt-32 sm:pb-12">
-      <img src={heroPhoto} alt="" fetchPriority="high" className="absolute inset-0 -z-20 size-full object-cover object-center" />
+      <img src={hero.photo} alt="" fetchPriority="high" className="absolute inset-0 -z-20 size-full object-cover object-center" />
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-ink/60" />
       <div className="mx-auto max-w-5xl px-4 text-center sm:px-6">
         <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-ink-foreground/90">
-          <span className="size-2 animate-pulse rounded-full bg-pink" /> Official EF Hult Prize campus program · 2026/27
+          <span className="size-2 animate-pulse rounded-full bg-pink" /> {hero.badge}
         </span>
-        <img src={heroLockup} alt="EF Hult Prize and Hult Prize at MEC logo lockup" fetchPriority="high" className="mx-auto mb-5 mt-5 block h-auto w-full max-w-md drop-shadow-[0_6px_18px_oklch(0_0_0/45%)] sm:mb-6 sm:mt-6" />
+        <img src={hero.lockup} alt="EF Hult Prize and Hult Prize at MEC logo lockup" fetchPriority="high" className="mx-auto mb-5 mt-5 block h-auto w-full max-w-md drop-shadow-[0_6px_18px_oklch(0_0_0/45%)] sm:mb-6 sm:mt-6" />
         <h1 className="mt-4 text-4xl font-black leading-[0.95] sm:mt-6 sm:text-7xl md:text-8xl">
-          Hult Prize <span className="text-gradient-pink">at MEC</span>
+          {hero.title} <span className="text-gradient-pink">{hero.accent}</span>
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-base text-ink-foreground/75 sm:mt-6 sm:text-xl">{site.tagline}</p>
         <div className="mt-6 flex flex-col justify-center gap-3 sm:mt-9 sm:flex-row">
-          <Button asChild variant="hero" size="xl"><a href="#register">Register Now</a></Button>
-          <Button variant="heroOutline" size="xl" onClick={onPartner}>Become a Partner</Button>
+          <Button asChild variant="hero" size="xl"><a href="#register">{presentation.buttons.register}</a></Button>
+          <Button variant="heroOutline" size="xl" onClick={onPartner}>{presentation.buttons.partner}</Button>
         </div>
         <div className="mt-8 sm:mt-14">
-          <p className="mb-3 text-xs uppercase tracking-[0.3em] text-pink-soft sm:mb-4">Local competition · 15 February 2027</p>
+          <p className="mb-3 text-xs uppercase tracking-[0.3em] text-pink-soft sm:mb-4">{hero.countdownLabel}</p>
           <div className="mx-auto grid max-w-lg grid-cols-4 gap-2 sm:gap-4">
             {cd.map(([label, v]) => (
               <div key={label} className="rounded-lg border border-ink-foreground/10 bg-ink-foreground/5 px-2 py-3 backdrop-blur sm:py-4">
@@ -55,15 +56,13 @@ export function Hero({ onPartner }: { onPartner: () => void }) {
 }
 
 export function About() {
-  const cards = [
-    { icon: Globe2, title: "The Hult Prize", text: "The world's largest student competition for social good. Every year, thousands of students across 100+ countries build startups that tackle the world's toughest problems, competing for a US$1M prize." },
-    { icon: Lightbulb, title: "Hult Prize at MEC", text: "The official campus program at Mymensingh Engineering College. We bring the global competition to our campus, helping MEC students form teams, sharpen ideas, and pitch for a place on the world stage." },
-    { icon: Users, title: "Open to everyone", text: "Coders, designers, writers, photographers, dreamers. Every department and every semester is welcome. All you need is curiosity and the will to make an impact." },
-  ];
+  const { about } = useSiteContent();
+  const icons = [Globe2, Lightbulb, Users];
+  const cards = about.cards.map((card, i) => ({ ...card, icon: icons[i] ?? Lightbulb }));
   return (
     <section id="about" className="bg-background py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <SectionHeading eyebrow="About" title={<>Business for <span className="text-gradient-pink">good</span></>} intro="Turning student ideas into startups that change lives." />
+        <SectionHeading eyebrow={about.eyebrow} title={<>{about.title} <span className="text-gradient-pink">{about.accent}</span></>} intro={about.intro} />
         <div className="grid gap-6 md:grid-cols-3">
           {cards.map((c, i) => (
             <Reveal key={c.title} delay={i * 100}>
@@ -81,10 +80,12 @@ export function About() {
 }
 
 export function Team() {
+  const { team } = useSiteContent();
+  const { director, deputies } = team;
   return (
     <section id="team" className="relative overflow-hidden bg-muted py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading eyebrow="Leadership" title={<>Meet our <span className="text-gradient-pink">team</span></>} intro="The people leading Hult Prize at MEC." />
+        <SectionHeading eyebrow={team.eyebrow} title={<>{team.title} <span className="text-gradient-pink">{team.accent}</span></>} intro={team.intro} />
         <Reveal>
           <article className="group grid items-center gap-8 overflow-hidden rounded-[2rem] border border-border bg-card p-6 shadow-card transition hover:border-pink hover:shadow-glow sm:p-10 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
             <div className="relative">
@@ -128,6 +129,7 @@ export function Team() {
 }
 
 export function Stats() {
+  const { stats } = useSiteContent();
   return (
     <section className="bg-ink py-14 text-ink-foreground">
       <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-4 sm:px-6 md:grid-cols-4">

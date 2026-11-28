@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { logos, site } from "@/content/site";
+import { useSiteContent } from "@/content/context";
 import { SocialIcon } from "./helpers";
-
-const links = [
-  ["About", "#about"], ["Team", "#team"], ["Events", "#events"], ["Journey", "#journey"],
-  ["Prizes", "#prizes"], ["Partners", "#partners"], ["Gallery", "#gallery"], ["FAQ", "#faq"], ["Contact", "#contact"],
-] as const;
 
 function ThemeToggle() {
   const [dark, setDark] = useState(false);
@@ -26,6 +21,8 @@ function ThemeToggle() {
 }
 
 export function Navbar() {
+  const { site, logos, presentation } = useSiteContent();
+  const links = presentation.navigation;
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
@@ -39,16 +36,16 @@ export function Navbar() {
         <a href="#top" className="flex min-w-0 items-center gap-2">
           <img src={logos.mec} alt="MEC logo" className="size-9 shrink-0" />
           <img src={logos.hultAlt} alt="EF Hult Prize logo" loading="lazy" className="hidden h-7 w-auto shrink-0 sm:block" />
-          <span className="truncate font-display text-sm font-bold text-ink-foreground sm:text-base">Hult Prize <span className="text-pink">at MEC</span></span>
+          <span className="truncate font-display text-sm font-bold text-ink-foreground sm:text-base">{site.name}</span>
         </a>
         <ul className="hidden items-center gap-5 xl:flex">
-          {links.map(([l, h]) => (
+          {links.map(({label: l, href: h}) => (
             <li key={h}><a href={h} className="text-sm text-ink-foreground/75 transition hover:text-pink">{l}</a></li>
           ))}
         </ul>
         <div className="flex shrink-0 items-center gap-2">
           <ThemeToggle />
-          <Button asChild variant="hero" size="sm" className="hidden sm:inline-flex"><a href="#register">Register Now</a></Button>
+          <Button asChild variant="hero" size="sm" className="hidden sm:inline-flex"><a href="#register">{presentation.buttons.register}</a></Button>
           <button className="grid size-9 place-items-center text-ink-foreground xl:hidden" onClick={() => setOpen(!open)} aria-label="Menu">
             {open ? <X /> : <Menu />}
           </button>
@@ -57,11 +54,11 @@ export function Navbar() {
       {open && (
         <div className="border-t border-ink-foreground/10 bg-ink px-4 pb-6 xl:hidden">
           <ul className="grid gap-1 py-3">
-            {links.map(([l, h]) => (
+            {links.map(({label: l, href: h}) => (
               <li key={h}><a onClick={() => setOpen(false)} href={h} className="block rounded-lg px-3 py-2 text-ink-foreground/85 hover:bg-ink-foreground/5 hover:text-pink">{l}</a></li>
             ))}
           </ul>
-          <Button asChild variant="hero" className="w-full"><a href="#register" onClick={() => setOpen(false)}>Register Now</a></Button>
+          <Button asChild variant="hero" className="w-full"><a href="#register" onClick={() => setOpen(false)}>{presentation.buttons.register}</a></Button>
         </div>
       )}
     </header>
@@ -69,6 +66,8 @@ export function Navbar() {
 }
 
 export function Footer() {
+  const { site, logos, presentation } = useSiteContent();
+  const links = presentation.navigation;
   return (
     <footer className="bg-ink text-ink-foreground">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-3">
@@ -77,17 +76,17 @@ export function Footer() {
             <img src={logos.hult} alt="EF Hult Prize logo" loading="lazy" className="h-12 w-auto" />
             <img src={logos.mec} alt="Mymensingh Engineering College logo" loading="lazy" className="size-12" />
           </div>
-          <p className="mt-5 max-w-xs text-sm text-ink-foreground/65">Official Hult Prize campus program at MEC. Ideas that change the world start on our campus.</p>
+          <p className="mt-5 max-w-xs text-sm text-ink-foreground/65">{presentation.footer.text}</p>
         </div>
         <div>
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-widest text-pink">Quick links</h3>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-widest text-pink">{presentation.footer.linksTitle}</h3>
           <ul className="grid grid-cols-2 gap-2 text-sm text-ink-foreground/70">
-            {links.map(([l, h]) => <li key={h}><a href={h} className="hover:text-pink">{l}</a></li>)}
+            {links.map(({label: l, href: h}) => <li key={h}><a href={h} className="hover:text-pink">{l}</a></li>)}
             <li><a href="#register" className="hover:text-pink">Register</a></li>
           </ul>
         </div>
         <div>
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-widest text-pink">Connect</h3>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-widest text-pink">{presentation.footer.connectTitle}</h3>
           <p className="text-sm text-ink-foreground/70">{site.email}</p>
           <div className="mt-4 flex gap-2">
             {(["facebook", "instagram", "linkedin"] as const).map((s) => (
@@ -97,13 +96,14 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-ink-foreground/10 py-6 text-center text-xs text-ink-foreground/50">
-        © 2026/27 Hult Prize at MEC · Mymensingh Engineering College · hultatmec.com
+        {presentation.footer.copyright}
       </div>
     </footer>
   );
 }
 
 export function WhatsAppButton() {
+  const { site } = useSiteContent();
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {

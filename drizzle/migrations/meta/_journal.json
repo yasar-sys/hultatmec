@@ -8,6 +8,20 @@
       "when": 1795722612891,
       "tag": "0000_create_submissions",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1795857199995,
+      "tag": "0001_website_content_editor",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795857313052,
+      "tag": "0002_public_website_media_reads",
+      "breakpoints": true
     }
   ]
 }

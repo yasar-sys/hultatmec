@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { site } from "@/content/site";
+import { useSiteContent } from "@/content/context";
 import { contactSchema, partnerSchema, registrationSchema } from "@/lib/schemas";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -69,6 +69,7 @@ function FormFeedback({ status, success }: { status: FormStatus; success: string
 }
 
 export function RegistrationForm() {
+  const { register, presentation } = useSiteContent();
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errors, setErrors] = useState<FormErrors>({});
 
@@ -97,10 +98,10 @@ export function RegistrationForm() {
     <section id="register" className="bg-muted py-20 sm:py-28">
       <div className="mx-auto grid max-w-7xl items-start gap-10 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <div className="lg:sticky lg:top-28">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-primary">Registration · 2026/27</p>
-          <h2 className="text-3xl font-bold text-foreground sm:text-5xl">Bring your idea to the <span className="text-gradient-pink">starting line</span></h2>
-          <p className="mt-5 max-w-lg text-lg text-muted-foreground">Register your team for Hult Prize at MEC. Every department and semester is welcome.</p>
-          <p className="mt-6 text-sm text-muted-foreground">Teams have 3–4 members. Participation is free.</p>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-primary">{register.eyebrow}</p>
+          <h2 className="text-3xl font-bold text-foreground sm:text-5xl">{register.title} <span className="text-gradient-pink">{register.accent}</span></h2>
+          <p className="mt-5 max-w-lg text-lg text-muted-foreground">{register.intro}</p>
+          <p className="mt-6 text-sm text-muted-foreground">{register.note}</p>
         </div>
         <form onSubmit={submit} noValidate className="grid gap-5 rounded-lg border border-border bg-card p-5 shadow-card sm:grid-cols-2 sm:p-8">
           <Field id="team_name" label="Team name" error={errors.team_name}>
@@ -132,9 +133,9 @@ export function RegistrationForm() {
             </Field>
           </div>
           <div className="flex flex-col gap-3 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
-            <FormFeedback status={status} success="Your team is registered. We’ll be in touch soon." />
+            <FormFeedback status={status} success={presentation.forms.registrationSuccess} />
             <Button type="submit" variant="hero" disabled={status === "saving"}>
-              {status === "saving" ? "Sending…" : "Register team"}<ArrowRight aria-hidden="true" />
+              {status === "saving" ? "Sending…" : presentation.forms.registrationSubmit}<ArrowRight aria-hidden="true" />
             </Button>
           </div>
         </form>
@@ -144,6 +145,7 @@ export function RegistrationForm() {
 }
 
 function PartnerRequestForm() {
+  const { presentation } = useSiteContent();
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errors, setErrors] = useState<FormErrors>({});
 
@@ -188,9 +190,9 @@ function PartnerRequestForm() {
         </Field>
       </div>
       <div className="flex flex-col gap-3 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
-        <FormFeedback status={status} success="Thanks for reaching out. We’ll follow up with you." />
+        <FormFeedback status={status} success={presentation.forms.partnerSuccess} />
         <Button type="submit" variant="hero" disabled={status === "saving"}>
-          {status === "saving" ? "Sending…" : "Send inquiry"}<Send aria-hidden="true" />
+          {status === "saving" ? "Sending…" : presentation.forms.partnerSubmit}<Send aria-hidden="true" />
         </Button>
       </div>
     </form>
@@ -198,11 +200,12 @@ function PartnerRequestForm() {
 }
 
 export function PartnerRequestDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
+  const { presentation } = useSiteContent();
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-h-[90vh] max-w-xl overflow-y-auto">
-        <DialogTitle className="font-display text-2xl font-bold">Partner with Hult Prize at MEC</DialogTitle>
-        <p className="mb-2 text-sm text-muted-foreground">Tell us a little about your organization and how you’d like to support student changemakers.</p>
+        <DialogTitle className="font-display text-2xl font-bold">{presentation.forms.partnerTitle}</DialogTitle>
+        <p className="mb-2 text-sm text-muted-foreground">{presentation.forms.partnerIntro}</p>
         <PartnerRequestForm />
       </DialogContent>
     </Dialog>
@@ -210,6 +213,7 @@ export function PartnerRequestDialog({ open, onOpenChange }: { open: boolean; on
 }
 
 export function ContactSection() {
+  const { site, contact, presentation } = useSiteContent();
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errors, setErrors] = useState<FormErrors>({});
 
@@ -239,17 +243,17 @@ export function ContactSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-primary">Contact</p>
-            <h2 className="text-3xl font-bold text-foreground sm:text-5xl">Let’s <span className="text-gradient-pink">connect</span></h2>
-            <p className="mt-5 max-w-lg text-lg text-muted-foreground">Questions about joining, mentoring, or working with the program? Send us a message.</p>
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-primary">{contact.eyebrow}</p>
+            <h2 className="text-3xl font-bold text-foreground sm:text-5xl">{contact.title} <span className="text-gradient-pink">{contact.accent}</span></h2>
+            <p className="mt-5 max-w-lg text-lg text-muted-foreground">{contact.intro}</p>
             <a href={`mailto:${site.email}`} className="mt-6 inline-flex items-center gap-2 font-semibold text-primary hover:underline">
               {site.email}<ArrowRight className="size-4" aria-hidden="true" />
             </a>
-            <div className="mt-8 flex items-center gap-2 text-sm font-medium text-foreground"><MapPin className="size-4 text-primary" aria-hidden="true" />Mymensingh Engineering College, Bangladesh</div>
+            <div className="mt-8 flex items-center gap-2 text-sm font-medium text-foreground"><MapPin className="size-4 text-primary" aria-hidden="true" />{contact.place}</div>
             <div className="mt-5 overflow-hidden rounded-lg border border-border">
               <iframe
                 title="Map to Mymensingh Engineering College"
-                src="https://www.google.com/maps?q=Mymensingh%20Engineering%20College%2C%20Bangladesh&output=embed"
+                src={`https://www.google.com/maps?q=${encodeURIComponent(contact.place)}&output=embed`}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 className="aspect-[16/9] w-full border-0"
@@ -257,7 +261,7 @@ export function ContactSection() {
             </div>
           </div>
           <div>
-            <h3 className="text-xl font-bold text-foreground">Send a message</h3>
+            <h3 className="text-xl font-bold text-foreground">{presentation.forms.contactTitle}</h3>
             <form onSubmit={submit} noValidate className="mt-6 grid gap-5">
               <Field id="contact_name" label="Your name" error={errors.name}>
                 <Input id="contact_name" name="name" required maxLength={100} autoComplete="name" aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? "contact_name-error" : undefined} />
@@ -269,9 +273,9 @@ export function ContactSection() {
                 <Textarea id="contact_message" name="message" required maxLength={2000} rows={6} aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? "contact_message-error" : undefined} />
               </Field>
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <FormFeedback status={status} success="Your message has been sent. Thank you!" />
+                <FormFeedback status={status} success={presentation.forms.contactSuccess} />
                 <Button type="submit" variant="hero" disabled={status === "saving"}>
-                  {status === "saving" ? "Sending…" : "Send message"}<Send aria-hidden="true" />
+                  {status === "saving" ? "Sending…" : presentation.forms.contactSubmit}<Send aria-hidden="true" />
                 </Button>
               </div>
             </form>

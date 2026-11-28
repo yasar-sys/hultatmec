@@ -22,7 +22,18 @@ export type Deputy = {
   message: string;
 };
 
+export const sectionIds = ["hero", "about", "team", "stats", "events", "journey", "outreach", "prizes", "sponsors", "gallery", "news", "faqs", "register", "contact"] as const;
+export type SectionId = typeof sectionIds[number];
+
 export type SiteContent = {
+  presentation: {
+    sections: { id: SectionId; visible: boolean }[];
+    navigation: { label: string; href: string }[];
+    footer: { text: string; copyright: string; linksTitle: string; connectTitle: string };
+    seo: { title: string; description: string };
+    buttons: { register: string; partner: string; join: string; partnerCta: string };
+    forms: { registrationSubmit: string; registrationSuccess: string; contactTitle: string; contactSubmit: string; contactSuccess: string; partnerTitle: string; partnerIntro: string; partnerSubmit: string; partnerSuccess: string };
+  };
   site: {
     name: string;
     tagline: string;
@@ -136,6 +147,14 @@ export type SiteContent = {
 };
 
 export const defaultContent: SiteContent = {
+  presentation: {
+    sections: sectionIds.map(id => ({ id, visible: true })),
+    navigation: [["About", "#about"], ["Team", "#team"], ["Events", "#events"], ["Journey", "#journey"], ["Prizes", "#prizes"], ["Partners", "#partners"], ["Gallery", "#gallery"], ["FAQ", "#faq"], ["Contact", "#contact"]].map(([label, href]) => ({label: label ?? "", href: href ?? ""})),
+    footer: { text: "Official Hult Prize campus program at MEC. Ideas that change the world start on our campus.", copyright: "© 2026/27 Hult Prize at MEC · Mymensingh Engineering College · hultatmec.com", linksTitle: "Quick links", connectTitle: "Connect" },
+    seo: { title: "Hult Prize at MEC | Student Social Impact Competition", description: "Join the EF Hult Prize campus program at Mymensingh Engineering College. Build a team, develop an idea for social impact, and compete in 2026/27." },
+    buttons: { register: "Register Now", partner: "Become a Partner", join: "Join", partnerCta: "Partner with us" },
+    forms: { registrationSubmit: "Register team", registrationSuccess: "Your team is registered. We’ll be in touch soon.", contactTitle: "Send a message", contactSubmit: "Send message", contactSuccess: "Your message has been sent. Thank you!", partnerTitle: "Partner with Hult Prize at MEC", partnerIntro: "Tell us a little about your organization and how you’d like to support student changemakers.", partnerSubmit: "Send inquiry", partnerSuccess: "Thanks for reaching out. We’ll follow up with you." },
+  },
   site: {
     name: "Hult Prize at MEC",
     tagline: "Ideas that change the world start on our campus",

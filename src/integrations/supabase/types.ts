@@ -14,6 +14,24 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_login_attempts: {
+        Row: {
+          attempts: number
+          key: string
+          window_start: string
+        }
+        Insert: {
+          attempts?: number
+          key: string
+          window_start?: string
+        }
+        Update: {
+          attempts?: number
+          key?: string
+          window_start?: string
+        }
+        Relationships: []
+      }
       contact_messages: {
         Row: {
           created_at: string
@@ -107,12 +125,36 @@ export type Database = {
         }
         Relationships: []
       }
+      site_content: {
+        Row: {
+          content: Json
+          id: string
+          revision: number
+          updated_at: string
+        }
+        Insert: {
+          content?: Json
+          id?: string
+          revision?: number
+          updated_at?: string
+        }
+        Update: {
+          content?: Json
+          id?: string
+          revision?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      check_admin_login_limit: {
+        Args: { attempt_key: string }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
